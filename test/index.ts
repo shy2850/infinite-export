@@ -47,7 +47,9 @@ const button = document.querySelector<HTMLButtonElement>('.button')
 const process = document.querySelector<HTMLDivElement>('.process')
 const inner = document.querySelector<HTMLDivElement>('.inner')
 const percent = document.querySelector<HTMLSpanElement>('.percent')
+const cancel = document.querySelector<HTMLSpanElement>('.cancel')
 
+let doCancel = function () {}
 const doExport = () => {
     button?.setAttribute('disabled', 'disabled')
     if (process) {
@@ -55,7 +57,7 @@ const doExport = () => {
     }
     let loaded = 0
     let total = 100
-    fetchExport({
+    const { cancel } = fetchExport({
         body: '/f2e-server/f2e-server/events.json',
         fetch: async function (body: string) {
             const { data }: {
@@ -89,7 +91,12 @@ const doExport = () => {
         columnsType: columns,
         filename: 'f2e-server动态.xlsx',
     })
+    doCancel = cancel
 }
 
 button?.addEventListener('click', doExport)
-
+cancel?.addEventListener('click', function () {
+    doCancel()
+    button?.removeAttribute('disabled')
+    process && (process.style.display = 'none')
+})

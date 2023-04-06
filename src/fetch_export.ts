@@ -2,7 +2,8 @@ import * as xlsx from 'xlsx';
 import { FetchExportProps } from './interfaces';
 import { defaultConfig, getFieldValue } from './config';
 
-export const fetchExport = async <T extends object, F>(options: FetchExportProps<T, F>) => {
+export const fetchExport = <T extends object, F>(options: FetchExportProps<T, F>) => {
+    let disabled = false
     const {
         filename,
         sheet_name,
@@ -41,7 +42,7 @@ export const fetchExport = async <T extends object, F>(options: FetchExportProps
         xlsx.utils.book_append_sheet(wb, ws, name)
     }
     const loop = async function loop (body: F, callback: Function) {
-        if (body) {
+        if (body && !disabled) {
             const [ res, next_body ] = await fetch(body)
             lines = lines.concat(res.list)
             while (lines.length >= (index + 1) * sheet_size) {
@@ -62,7 +63,14 @@ export const fetchExport = async <T extends object, F>(options: FetchExportProps
             callback?.()
         }
     }
-    await loop(options.body, function () {
-        xlsx.writeFile(wb, filename, writingOptions)
+    loop(options.body, function () {
+        if (!disabled) {
+            xlsx.writeFile(wb, filename, writingOptions)
+        }
     })
+    return {
+        cancel: () => {
+            disabled = true
+        }
+    }
 }
