@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Export</title>
+    <style>
+        .button {
+            padding: 6px 12px;
+        }
+        .process {
+            margin-top: 20px;
+            width: 500px;
+            position: relative;
+            height: 20px;
+            line-height: 20px;
+            font: normal 12px/20px Arial;
+            border: 1px solid #999;
+            text-align: center;
+            display: none;
+        }
+        .process .inner {
+            position: absolute;
+            height: 20px;
+            width: 0;
+            background: rgba(100, 100, 100, .5);
+        }
+        .process .percent {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <button class="button">导出</button>
+    <div class="process">
+        <div class="inner"></div>
+        <span class="percent"></span>
+    </div>
+    <script src="/static/index.js?${Date.now()}"></script>
+</body>
+</html>

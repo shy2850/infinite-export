@@ -1,0 +1,29 @@
+{
+  "name": "infinite-export",
+  "version": "0.1.0",
+  "description": "利用分页等方式在前端实现无限级的 excel 数据导出",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "dev": "f2e start",
+    "tsc": "tsc",
+    "prepublishOnly": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "f2e-middle-esbuild": "^0.7.0",
+    "f2e-middle-proxy": "^0.7.0",
+    "f2e-server": "^2.17.4",
+    "typescript": "^5.0.3"
+  }
+}
