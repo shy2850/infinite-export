@@ -13,6 +13,8 @@ const config = {
     // __withlog__: true,
     gzip: true,
     // compressors: ['br', 'gzip', 'deflate'],
+    watchFilter: p => /^(test|src|index|$)/.test(p),
+    buildFilter: p => /^(test|src|index|$)/.test(p),
     middlewares: [
         { middleware: 'template', test: /\.html?/ },
         { middleware: 'esbuild' },
